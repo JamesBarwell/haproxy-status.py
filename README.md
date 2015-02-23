@@ -5,9 +5,9 @@ A python script to display HAProxy status, by connecting to the management socke
 
 ## How to use
 
-Ensure that the HAProxy [management socket is configured](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#9.2).
+Ensure that the HAProxy [management socket is configured](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#9.2). You will need to configure one management socket per process.
 
 
 ```bash
-./haproxy-status.py [--socket /path/to/socket]
+./haproxy-status.py /var/run/haproxy.sock [/var/run/haproxy2.sock [/var/run/haproxy3.sock]]
 ```

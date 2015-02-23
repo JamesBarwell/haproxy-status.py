@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import argparse
 import socket
 import csv
 import sys
@@ -13,13 +12,17 @@ PRINT_COLS = {
 }
 DEBUG = False
 
-def execute(cmd, socket='/var/run/haproxy.sock'):
+def execute(cmd, socketPath):
     try:
         client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     except:
+        print "Could not initialise socket client"
+        sys.exit(1)
+    try:
+        client.connect(socketPath)
+    except:
         print "Could not connect to socket: %s" % socket
         sys.exit(1)
-    client.connect(socket)
     client.sendall('%s\n' % cmd)
     result = ''
     buf = ''
@@ -49,12 +52,8 @@ def is_host(line):
 def get_hosts(stats):
     return filter(is_host, stats)
 
-def get_headers():
-    return ['svname', 'pxname', 'status']
-
 def print_table(table):
     table = strip_table(table)
-    table.insert(0, get_headers())
     table = map(insert_table_spaces, table)
 
     col_widths = [max(len(x) for x in col) for col in zip(*table)]
@@ -83,14 +82,11 @@ def insert_table_spaces(row):
             rtn.append(item)
     return rtn
 
-def main(socket):
-    stats = get_stats(socket)
-    hosts = get_hosts(stats)
-    print_table(hosts)
+def main(sockets):
+    for socket in sockets:
+        stats = get_stats(socket)
+        hosts = get_hosts(stats)
+        print_table(hosts)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Get HAProxy status information')
-    parser.add_argument('--socket', help='path to haproxy socket', nargs='?', default='/var/run/haproxy.socket')
-
-    args = parser.parse_args()
-    main(args.socket)
+    main(sys.argv[1:])
