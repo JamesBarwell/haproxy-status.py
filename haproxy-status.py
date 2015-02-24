@@ -9,6 +9,13 @@ PRINT_COLS = {
     'pxname': 0,
     'svname': 1,
     'status': 17,
+    'weight': 18,
+    'chkdown': 22,
+    'lastchg': 23,
+    'rate': 33,
+    'rate_max': 35,
+    'check_status': 36,
+    'rtime': 60,
 }
 DEBUG = False
 
