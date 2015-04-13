@@ -18,18 +18,28 @@ Ensure that the HAProxy [management socket is configured](http://cbonte.github.i
 ./haproxy-status.py /var/run/haproxy.sock [/var/run/haproxy2.sock [/var/run/haproxy3.sock]]
 ```
 
+The output table is designed to be easily filtered by grep.
+
 ## Example output
 
 ```bash
 $ /opt/haproxy-status.py /var/run/haproxy1.sock /var/run/haproxy2.sock
-# pxname | svname      | status | weight | chkdown | lastchg | rate | rate_max | check_status | rtime
-web      | LIVE-WEB-01 | UP     | 1      | 0       | 163     | 0    | 0        | L7OK         | 0
-web      | LIVE-WEB-02 | UP     | 1      | 0       | 163     | 0    | 0        | L7OK         | 0
-api      | LIVE-API-01 | DOWN   | 1      | 1       | 163     | 0    | 0        | L4CON        | 0
-api      | LIVE-API-02 | DOWN   | 1      | 1       | 163     | 0    | 0        | L4CON        | 0
-# pxname | svname      | status | weight | chkdown | lastchg | rate | rate_max | check_status | rtime
-web      | LIVE-WEB-01 | UP     | 1      | 0       | 163     | 0    | 0        | L7OK         | 0
-web      | LIVE-WEB-02 | UP     | 1      | 0       | 163     | 0    | 0        | L7OK         | 0
-api      | LIVE-API-01 | DOWN   | 1      | 1       | 163     | 0    | 0        | L4CON        | 0
-api      | LIVE-API-02 | DOWN   | 1      | 1       | 163     | 0    | 0        | L4CON        | 0
+socket                 | # pxname | svname        | status | weight | chkdown | lastchg | rate | rate_max | check_status | rtime
+/var/run/haproxy1.sock | web      | live-web-01   | UP     | 1      | 1       | 165     | 0    | 0        | L7OK         | 0
+/var/run/haproxy1.sock | web      | live-web-02   | UP     | 1      | 0       | 2534    | 0    | 0        | L7OK         | 0
+/var/run/haproxy1.sock | api      | live-api-01   | UP     | 1      | 2       | 165     | 0    | 0        | L7OK         | 0
+/var/run/haproxy1.sock | api      | live-api-02   | UP     | 1      | 0       | 2534    | 0    | 0        | L7OK         | 0
+/var/run/haproxy1.sock | int      | live-int-01   | UP     | 1      | 1       | 164     | 0    | 0        | L4OK         | 0
+/var/run/haproxy1.sock | int      | live-int-02   | UP     | 1      | 0       | 2534    | 0    | 0        | L4OK         | 0
+/var/run/haproxy1.sock | admin    | live-admin-01 | UP     | 1      | 2       | 163     | 0    | 0        | L7OK         | 0
+/var/run/haproxy1.sock | admin    | live-admin-02 | UP     | 1      | 0       | 2534    | 0    | 0        | L7OK         | 0
+socket                 | # pxname | svname        | status | weight | chkdown | lastchg | rate | rate_max | check_status | rtime
+/var/run/haproxy2.sock | web      | live-web-01   | UP     | 1      | 1       | 165     | 0    | 0        | L7OK         | 0
+/var/run/haproxy2.sock | web      | live-web-02   | UP     | 1      | 0       | 2534    | 0    | 0        | L7OK         | 0
+/var/run/haproxy2.sock | api      | live-api-01   | UP     | 1      | 2       | 165     | 0    | 0        | L7OK         | 0
+/var/run/haproxy2.sock | api      | live-api-02   | UP     | 1      | 0       | 2534    | 0    | 0        | L7OK         | 0
+/var/run/haproxy2.sock | int      | live-int-01   | UP     | 1      | 1       | 164     | 0    | 0        | L4OK         | 0
+/var/run/haproxy2.sock | int      | live-int-02   | UP     | 1      | 0       | 2534    | 0    | 0        | L4OK         | 0
+/var/run/haproxy2.sock | admin    | live-admin-01 | UP     | 1      | 2       | 163     | 0    | 0        | L7OK         | 0
+/var/run/haproxy2.sock | admin    | live-admin-02 | UP     | 1      | 0       | 2534    | 0    | 0        | L7OK         | 0
 ```
