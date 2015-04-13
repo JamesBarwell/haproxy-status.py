@@ -59,8 +59,13 @@ def is_host(line):
 def get_hosts(stats):
     return filter(is_host, stats)
 
-def print_table(table):
+def print_table(socket_name, table):
     table = strip_table(table)
+
+    table[0].insert(0, 'socket')
+    for row in table[1:]:
+        row.insert(0, socket_name)
+
     table = map(insert_table_spaces, table)
 
     col_widths = [max(len(x) for x in col) for col in zip(*table)]
@@ -93,7 +98,7 @@ def main(sockets):
     for socket in sockets:
         stats = get_stats(socket)
         hosts = get_hosts(stats)
-        print_table(hosts)
+        print_table(socket, hosts)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
