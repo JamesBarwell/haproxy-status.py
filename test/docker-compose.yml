@@ -1,0 +1,21 @@
+web1:
+  restart: 'no'
+  tty: true
+  image: tutum/hello-world
+
+web2:
+  restart: 'no'
+  tty: true
+  image: tutum/hello-world
+
+haproxy:
+  restart: 'no'
+  tty: true
+  image: tutum/haproxy
+  ports:
+    - 80:80
+  links:
+    - web1:web1
+    - web2:web2
+  volumes:
+    - /run
