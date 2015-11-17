@@ -14,8 +14,14 @@ This script could be of use in the following circumstances:
 
 Ensure that the HAProxy [management socket is configured](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#9.2). You will need to configure one management socket per process.
 
+### Run script
 ```bash
 ./haproxy-status.py /var/run/haproxy.sock [/var/run/haproxy2.sock [/var/run/haproxy3.sock]]
+```
+
+### Run script from Docker container
+```bash
+docker run --rm -v /var/run/haproxy.sock:/haproxy.sock barwell/haproxy-status /haproxy.sock
 ```
 
 The output table is designed to be easily filtered by grep.
